@@ -5,9 +5,9 @@ from selfdrive.controls.lib.drive_helpers import create_event, EventTypes as ET
 from common.filter_simple import FirstOrderFilter
 from common.stat_live import RunningStatFilter
 
-_AWARENESS_TIME = 70.  # one minute limit without user touching steering wheels make the car enter a terminal status
-_AWARENESS_PRE_TIME_TILL_TERMINAL = 15.  # a first alert is issued 25s before expiration
-_AWARENESS_PROMPT_TIME_TILL_TERMINAL = 6.  # a second alert is issued 15s before start decelerating the car
+_AWARENESS_TIME = 660.  # 11 minute limit without user touching steering wheels make the car enter a terminal status
+_AWARENESS_PRE_TIME_TILL_TERMINAL = 60.  # a first alert is issued 60s before expiration
+_AWARENESS_PROMPT_TIME_TILL_TERMINAL = 30.  # a second alert is issued 30s before start decelerating the car
 _DISTRACTED_TIME = 11.
 _DISTRACTED_PRE_TIME_TILL_TERMINAL = 8.
 _DISTRACTED_PROMPT_TIME_TILL_TERMINAL = 6.
@@ -183,8 +183,9 @@ class DriverStatus():
     self.blink.left_blink = driver_state.leftBlinkProb * (driver_state.leftEyeProb>_EYE_THRESHOLD)
     self.blink.right_blink = driver_state.rightBlinkProb * (driver_state.rightEyeProb>_EYE_THRESHOLD)
     self.face_detected = driver_state.faceProb > _FACE_THRESHOLD and \
-                          abs(driver_state.facePosition[0]) <= 0.4 and abs(driver_state.facePosition[1]) <= 0.45 and \
-                          not self.is_rhd_region
+                          abs(driver_state.facePosition[0]) <= 0.4 and abs(driver_state.facePosition[1]) <= 0.45 # and \
+                          # not self.is_rhd_region
+                          # enables driver monitoring in RHD regions
 
     self.driver_distracted = self._is_driver_distracted(self.pose, self.blink) > 0
     # first order filters
