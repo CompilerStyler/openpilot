@@ -11,7 +11,7 @@ def deleter_thread(exit_event):
   while not exit_event.is_set():
     available_bytes = get_available_bytes()
 
-    if available_bytes is not None and available_bytes < (20 * 1024 * 1024 * 1024): # keep 20GB free
+    if available_bytes is not None and available_bytes < (99 * 1024 * 1024 * 1024): # keep 99GB free
       # remove the earliest directory we can
       dirs = listdir_by_creation(ROOT)
       for delete_dir in dirs:
@@ -26,7 +26,7 @@ def deleter_thread(exit_event):
           break
         except OSError:
           cloudlog.exception("issue deleting %s" % delete_path)
-      exit_event.wait(.1)
+      exit_event.wait(10)
     else:
       exit_event.wait(30)
 
