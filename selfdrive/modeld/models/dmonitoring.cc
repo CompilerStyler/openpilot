@@ -32,7 +32,7 @@ DMonitoringResult dmonitoring_eval_frame(DMonitoringModelState* s, void* stream_
   uint8_t *cropped_u_buf = cropped_y_buf + (cropped_width * cropped_height);
   uint8_t *cropped_v_buf = cropped_u_buf + ((cropped_width/2) * (cropped_height/2));
 
-  if (false) { // enables RHD driver monitoring
+   if (true) {
     for (int r = 0; r < height/2; r++) {
       memcpy(cropped_y_buf + 2*r*cropped_width, raw_y_buf + 2*r*width + (width - cropped_width), cropped_width);
       memcpy(cropped_y_buf + (2*r+1)*cropped_width, raw_y_buf + (2*r+1)*width + (width - cropped_width), cropped_width);

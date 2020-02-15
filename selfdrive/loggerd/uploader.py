@@ -100,8 +100,8 @@ class Uploader():
     self.last_resp = None
     self.last_exc = None
 
-    self.immediate_priority = {"": 0} # limits uploading
-    self.high_priority = {"": 0} # limits uploading
+    self.immediate_priority = {"qcamera.ts": 0} # limits uploading
+    self.high_priority = {"qcamera.ts": 0} # limits uploading
 
   def clean_dirs(self):
     try:
